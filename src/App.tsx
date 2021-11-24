@@ -1,21 +1,25 @@
 import './styles/App.css';
+import { useExample } from './hooks/useExample';
+import { TextField } from '@material-ui/core';
+import type { ChangeEvent } from 'react';
 
 function App(): JSX.Element {
-  throw new Error('this is an error');
+  const example = useExample('Default Value');
 
   return (
     <div className="App">
       <header className="App-header">
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer">
-          Learn React
-        </a>
+        <p>{example.outputExample()}</p>
+        <TextField
+          id="filled-helperText"
+          label="Helper text"
+          defaultValue="Default Value"
+          helperText="Some important text"
+          variant="filled"
+          onChange={(message: ChangeEvent<HTMLInputElement>) =>
+            example.changeExample(message.currentTarget.value)
+          }
+        />
       </header>
     </div>
   );
